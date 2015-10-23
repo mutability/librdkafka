@@ -98,7 +98,7 @@ static const struct rd_kafka_property rd_kafka_properties[] = {
 	  "Topic metadata refresh interval in milliseconds. "
 	  "The metadata is automatically refreshed on error and connect. "
 	  "Use -1 to disable the intervalled refresh.",
-	  -1, 3600*1000, 10*1000 },
+	  -1, 3600*1000, 10*60*1000 },
 	{ _RK_GLOBAL, "topic.metadata.refresh.fast.cnt", _RK_C_INT,
 	  _RK(metadata_refresh_fast_cnt),
 	  "When a topic looses its leader this number of metadata requests "
@@ -344,7 +344,7 @@ static const struct rd_kafka_property rd_kafka_properties[] = {
           "The application must be use the `dr_msg_cb` to retrieve the offset "
           "from `rd_kafka_message_t.offset`.",
           0, 1, 0 },
-	{ _RK_TOPIC|_RK_PRODUCER, "partitioner", _RK_C_PTR,
+	{ _RK_TOPIC|_RK_PRODUCER, "partitioner_cb", _RK_C_PTR,
 	  _RKT(partitioner),
 	  "Partitioner callback "
 	  "(set with rd_kafka_topic_conf_set_partitioner_cb())" },

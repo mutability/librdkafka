@@ -7,7 +7,7 @@ metadata.broker.list                     |  *  |               | Initial list of
 message.max.bytes                        |  *  |       4000000 | Maximum transmit message size.
 receive.message.max.bytes                |  *  |     100000000 | Maximum receive message size. This is a safety precaution to avoid memory exhaustion in case of protocol hickups. The value should be at least fetch.message.max.bytes * number of partitions consumed from + messaging overhead (e.g. 200000 bytes).
 metadata.request.timeout.ms              |  *  |         60000 | Non-topic request timeout in milliseconds. This is for metadata requests, etc.
-topic.metadata.refresh.interval.ms       |  *  |         10000 | Topic metadata refresh interval in milliseconds. The metadata is automatically refreshed on error and connect. Use -1 to disable the intervalled refresh.
+topic.metadata.refresh.interval.ms       |  *  |        600000 | Topic metadata refresh interval in milliseconds. The metadata is automatically refreshed on error and connect. Use -1 to disable the intervalled refresh.
 topic.metadata.refresh.fast.cnt          |  *  |            10 | When a topic looses its leader this number of metadata requests are sent with `topic.metadata.refresh.fast.interval.ms` interval disregarding the `topic.metadata.refresh.interval.ms` value. This is used to recover quickly from transitioning leader brokers.
 topic.metadata.refresh.fast.interval.ms  |  *  |           250 | See `topic.metadata.refresh.fast.cnt` description
 topic.metadata.refresh.sparse            |  *  |         false | Sparse metadata requests (consumes less network bandwidth)
@@ -55,7 +55,7 @@ enforce.isr.cnt                          |  P  |             0 | Fail messages l
 request.timeout.ms                       |  P  |          5000 | The ack timeout of the producer request in milliseconds. This value is only enforced by the broker and relies on `request.required.acks` being > 0.
 message.timeout.ms                       |  P  |        300000 | Local message timeout. This value is only enforced locally and limits the time a produced message waits for successful delivery. A time of 0 is infinite.
 produce.offset.report                    |  P  |         false | Report offset of produced message back to application. The application must be use the `dr_msg_cb` to retrieve the offset from `rd_kafka_message_t.offset`.
-partitioner                              |  P  |               | Partitioner callback (set with rd_kafka_topic_conf_set_partitioner_cb())
+partitioner_cb                           |  P  |               | Partitioner callback (set with rd_kafka_topic_conf_set_partitioner_cb())
 opaque                                   |  *  |               | Application opaque (set with rd_kafka_topic_conf_set_opaque())
 group.id                                 |  C  |               | Consumer group id string. All clients sharing the same group.id belong to the same consumer group. This takes precedence over the global group.id.
 auto.commit.enable                       |  C  |          true | If true, periodically commit offset of the last message handed to the application. This commited offset will be used when the process restarts to pick up where it left off. If false, the application will have to call `rd_kafka_offset_store()` to store an offset (optional). **NOTE:** There is currently no zookeeper integration, offsets will be written to broker or local file according to offset.store.method.
